@@ -2,9 +2,11 @@
 
 In this project, we release the most diverse and comprehensive features for hundreds of Sinitic dialects from large-scale transcription and raw waves to faciliate further research in language variation/classification/evolution or related domains like Economics as references.
 
+You can use the [load.py](load.py) to load representations directly.
+
 ## 0. Data Used
 
-We collected raw speech ('Data2'), transcription ('Data4'), categorical annotation ('Data3') and historical information('Data1'). Below is detailed introduction.
+We collected raw speech ('Data2'), transcription ('Data4'), categorical annotation ('Data3') and historical information('Data1'). For each dataset, we apply clear and consistent preprocessing. Below is detailed introduction.
 
 **表 1: 数据集概览**
 | 标识  | 内容  | 规模  |  特征  | 来源 |
@@ -19,15 +21,27 @@ We collected raw speech ('Data2'), transcription ('Data4'), categorical annotati
 [^yang2024]: Yang, C., Zhang, X., Yan, S., Yang, S., Wu, B., You, F., ... & Zhang, M. (2024). Large-scale lexical and genetic alignment supports a hybrid model of Han Chinese demic and cultural diffusions. Nature Human Behaviour, 8(6), 1163-1176.
 [^zhang2019]: Zhang, M., Yan, S., Pan, W., & Jin, L. (2019). Phylogenetic evidence for Sino-Tibetan origin in northern China in the Late Neolithic. Nature, 569(7754), 112-115.
 
-## 1. Quick Use
 
 ## Data2: Speech Representations 
 
 ## Data3: Phonology, Lexicon, Syntax Representations
 
+<div align="center">
+<img align="center" src="imgs/LACD.PNG" width="1000px" />
+<b><br>Dialect Locations for Data3</b>
+</div>
+
 ## Data4: Initial, Final, and Tone Representations
 
-transcription_areas.pkl: dict
-[initials, final, tone] + [area, slice, slices] + word_name + coords
+<div align="center">
+<img align="center" src="imgs/YuBao.PNG" width="1000px" />
+<b><br>Dialect Locations for Data4</b>
+</div>
+
+- Processed transcription of initials, finals, and tones: numpy([1289, 999], string)
+- Distance matrix of initials, finals, tones, and all: numpy([1289, 1289], float)
+- Locations/Classifications: word_names(1000 words); areas, slice, slices(the classification of these areas); coords 
+
+
 
 

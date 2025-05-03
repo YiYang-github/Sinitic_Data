@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Overview
 
 In this project, we release the most diverse and comprehensive features for hundreds of Sinitic dialects from large-scale transcription and raw waves to faciliate further research in language variation/classification/evolution or related domains like Economics as references.

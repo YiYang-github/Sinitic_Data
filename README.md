@@ -27,14 +27,14 @@ We collected raw speech ('Data2'), transcription ('Data4'), categorical annotati
 ## Data3: Phonology, Lexicon, Syntax Representations
 
 <div align="center">
-<img align="center" src="imgs/LACD.PNG" width="1000px" />
+<img align="center" src="imgs/LACD.png" width="1000px" />
 <b><br>Dialect Locations for Data3</b>
 </div>
 
 ## Data4: Initial, Final, and Tone Representations
 
 <div align="center">
-<img align="center" src="imgs/YuBao.PNG" width="1000px" />
+<img align="center" src="imgs/YuBao.png" width="1000px" />
 <b><br>Dialect Locations for Data4</b>
 </div>
 

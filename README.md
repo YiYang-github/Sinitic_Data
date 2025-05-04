@@ -31,17 +31,54 @@ We collected raw speech ('Data2'), transcription ('Data4'), categorical annotati
 <b><br>Dialect Locations for Data3</b>
 </div>
 
+
+
+
 ## Data4: Initial, Final, and Tone Representations
 
 <div align="center">
 <img align="center" src="imgs/YuBao.png" width="1000px" />
-<b><br>Dialect Locations for Data4</b>
+<b><br>Fig 4.1: Original Dialect Locations for Data4</b>
 </div>
 
-- Processed transcription of initials, finals, and tones: numpy([1289, 999], string)
-- Distance matrix of initials, finals, tones, and all: numpy([1289, 1289], float)
-- Locations/Classifications: word_names(1000 words); areas, slice, slices(the classification of these areas); coords 
 
+### 4.1: Raw Transcription Loading
 
+As seen in Fig 4.1, the raw dataset contains 1289 Sinitic dialects. For each dialect, linguists investigate 1000 words.
 
+You can load the original transcription data and related metadata using the `load_feats` function in `load.py`. Specifically, use `type='raw'` to get this initial set of data:
 
+```python
+raw_data_dict = load_feats(name='Data4', type='raw')
+```
+
+Running this command will typically show loading progress or information similar to this output:
+
+```text
+正在从文件 'Data4/transcription_areas.pkl' 加载数据...
+计划加载的特征: ['word_name', 'area', 'slice', 'slices', 'coords', 'initial', 'final', 'tone']
+成功加载 8 个特征。
+```
+
+The `raw_data_dict` dictionary will contain the following keys, corresponding to the loaded features:
+
+* **Original Transcriptions:**
+    * `initial`: Original transcription of initials. (`numpy` array, shape `[1289, 999]`, string type)
+    * `final`: Original transcription of finals. (`numpy` array, shape `[1289, 999]`, string type)
+    * `tone`: Original transcription of tones. (`numpy` array, shape `[1289, 999]`, string type)
+    * *Note:* The second dimension is 999 instead of 1000 because the word '0053 瓦' is fully missing across all 1289 dialects in the original data source for these transcription features.
+
+* **Locations and Classifications:**
+    * `word_name`: A list or array of the 1000 words being investigated (including a placeholder or indicator for '0053 瓦').
+    * `area`: Classification of dialect areas.
+    * `slice`, `slices`: Further classifications or groupings of these areas.
+    * `coords`: Geographic coordinates for each dialect.
+
+You can then access the individual data components using the dictionary keys, for example:
+
+```python
+initials_data = raw_data_dict['initial']
+dialect_locations = raw_data_dict['coords']
+```
+
+### 4.2: Distance Matrix Loading

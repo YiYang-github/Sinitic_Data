@@ -81,4 +81,49 @@ initials_data = raw_data_dict['initial']
 dialect_locations = raw_data_dict['coords']
 ```
 
-### 4.2: Distance Matrix Loading
+
+### 4.2 Data Processing and Distance Matrix Calculation
+
+Before calculating dialect distances, the raw transcription data undergoes a processing step to handle missing and potentially unreliable values.
+
+The criteria for setting a transcription as a missing value were:
+* The transcription was marked as 'wrong' in the original data.
+* The specific transcription (of an initial, final, or tone) appeared less than 1000 times across the entire dataset, indicating low frequency and potential unreliability.
+
+After marking these values as missing, we filtered both the dialects (rows) and the words (columns). We kept only those dialects and words where the proportion of **missing values was less than 30%**.
+
+Following this filtering operation, the dataset was reduced to **1084 dialects** (rows) and **915 words** (columns).
+
+Subsequently, dialect distance matrices were calculated pairwisely based on the remaining **915 features** (words). Separate distance matrices were computed for:
+* Initials (`initials_distance`)
+* Finals (`finals_distance`)
+* Tones (`tones_distance`)
+* An overall combined distance (`overall_distance`)
+
+Each resulting distance matrix has a shape of `[1084, 1084]`.
+
+You can load these distance matrices using the `load_feats` function with `type='distance_matrices'`:
+
+```python
+distance_matrices_dict = load_feats(name='Data4', type='distance_matrices')
+
+# Example: Access the initials distance matrix
+initial_distance_matrix = distance_matrices_dict['initials_distance']
+
+# You can similarly access 'finals_distance', 'tones_distance', and 'overall_distance'
+# final_distance_matrix = distance_matrices_dict['finals_distance']
+# etc.
+```
+
+Simultaneously, you can load the associated metadata (such as coordinates, areas, and classifications) for the **filtered dialects** using `type='info'`:
+
+```python
+info_dict = load_feats(name='Data4', type='info')
+
+# Access the associated metadata for the 1084 kept dialects
+coords_data = info_dict['coords']
+areas_data = info_dict['areas']
+slice_data = info_dict['slice']
+slices_data = info_dict['slices']
+word_names_data = info_dict['word_names'] # Note: word_names is also included in 'info'
+```

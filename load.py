@@ -16,7 +16,7 @@ data4_distance_matrix_path = os.path.join(BASE_DATA4_DIR, 'distance_matrices.npz
 data4_processed_info_path = os.path.join(BASE_DATA4_DIR, 'processed_info.pkl')
 # -------------------------------------------------------------
 data3_distance_matrix_path = os.path.join(BASE_DATA3_DIR, 'distance_matrices.npz')
-data3_processed_info_path = os.path.join(BASE_DATA3_DIR, 'info.pnz')
+data3_processed_info_path = os.path.join(BASE_DATA3_DIR, 'info.npz')
 
 
 def load_feats(name, type=None, features=None):
@@ -72,8 +72,9 @@ def load_feats(name, type=None, features=None):
             'info': {
                 'file': data3_processed_info_path,
                 # 处理后信息文件的键名和输出键名一致
-                'pkl_keys': ['coords'], # 注意这里的键名与保存时字典的键名对应
-                'loader': 'pickle'}
+                'npz_keys': ['coords'], # 注意这里的键名与保存时字典的键名对应
+                'output_keys': ['coords'],
+                'loader': 'numpy_npz'}
             # 可以继续添加其他 type...
             # 'another_type': {...}
         }

@@ -28,11 +28,29 @@ We collected raw speech ('Data2'), transcription ('Data4'), categorical annotati
 
 <div align="center">
 <img align="center" src="imgs/LACD.png" width="500px" />
-<b><br>Dialect Locations for Data3</b>
+<b><br>Fig 3. Dialect Locations for Data3</b>
 </div>
 
+As seen in Fig 3 (left), the raw dataset contains 930 Sinitic dialects. For each dialect, linguists documentated 205 phonology、203 lexicon and 102 syntax maps.
 
+You can load the distance matrix and related coordinates using the `load_feats` function in `load.py`. Specifically, use `type='distance_matrices'` and `type='info'`  to get this initial set of data:
 
+```python
+distance_matricas = load_feats(name='Data4', type='distance_matrices')
+info = load_feats(name='Data3', type='info')
+```
+
+Running this command will typically show loading progress or information similar to this output:
+
+```text
+正在从文件 'Data3/distance_matrices.npz' 加载数据...
+计划加载的特征: ['lexicon_distance', 'phonology_distance', 'syntax_distance', 'overall_distance']
+成功加载 4 个特征。
+
+正在从文件 'Data3/info.npz' 加载数据...
+计划加载的特征: ['coords']
+成功加载 1 个特征。
+```
 
 ## Data4: Initial, Final, and Tone Representations
 

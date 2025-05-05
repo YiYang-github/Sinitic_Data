@@ -2,3 +2,7 @@ develop a tool
     input as longitude and lengtitude, and return the corresponding area, slice, slices
 
 select parts of the Yubao dataset
+
+语保部分分类标的不对，或至少是模糊区（需要进行二次重新标注）
+看方言区内的聚类
+看方言小片的聚类

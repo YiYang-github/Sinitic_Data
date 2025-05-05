@@ -1,19 +1,22 @@
 """
 Code to load the features
 """
-
 import numpy as np
 import pickle
 import os # 导入 os 库用于路径拼接
 
-
-BASE_DATA_DIR = 'Data4' # 数据文件所在的基准目录
+# --- 数据文件路径定义 (请根据你的实际文件位置修改这些路径) ---
+# 假设你的数据文件存放在项目根目录下的 data/Data4 文件夹内
+# 你可能需要根据实际情况调整这些路径
+BASE_DATA3_DIR, BASE_DATA4_DIR = 'Data3', 'Data4' # 数据文件所在的基准目录
 
 # Data4 的原始转写和元数据 pkl 文件
-data4_raw_data_path = os.path.join(BASE_DATA_DIR, 'transcription_areas.pkl') 
-data4_distance_matrix_path = os.path.join(BASE_DATA_DIR, 'distance_matrices.npz')
-data4_processed_info_path = os.path.join(BASE_DATA_DIR, 'processed_info.pkl')
+data4_raw_data_path = os.path.join(BASE_DATA4_DIR, 'transcription_areas.pkl') 
+data4_distance_matrix_path = os.path.join(BASE_DATA4_DIR, 'distance_matrices.npz')
+data4_processed_info_path = os.path.join(BASE_DATA4_DIR, 'processed_info.pkl')
 # -------------------------------------------------------------
+data3_distance_matrix_path = os.path.join(BASE_DATA3_DIR, 'distance_matrices.npz')
+data3_processed_info_path = os.path.join(BASE_DATA3_DIR, 'info.pnz')
 
 
 def load_feats(name, type=None, features=None):
@@ -55,6 +58,21 @@ def load_feats(name, type=None, features=None):
                 'file': data4_processed_info_path,
                 # 处理后信息文件的键名和输出键名一致
                 'pkl_keys': ['areas', 'slice', 'slices', 'coords', 'word_names'], # 注意这里的键名与保存时字典的键名对应
+                'loader': 'pickle'}
+            # 可以继续添加其他 type...
+            # 'another_type': {...}
+        },
+        'Data3': {
+            'distance_matrices': {
+                'file': data3_distance_matrix_path,
+                'npz_keys': ['lexicon', 'phonology', 'syntax', 'overall'], # npz 文件中的键名
+                'output_keys': ['lexicon_distance', 'phonology_distance', 'syntax_distance', 'overall_distance'], # 输出字典中的键名
+                'loader': 'numpy_npz' # 指定加载方式
+            },
+            'info': {
+                'file': data3_processed_info_path,
+                # 处理后信息文件的键名和输出键名一致
+                'pkl_keys': ['coords'], # 注意这里的键名与保存时字典的键名对应
                 'loader': 'pickle'}
             # 可以继续添加其他 type...
             # 'another_type': {...}

@@ -27,7 +27,7 @@ We collected raw speech ('Data2'), transcription ('Data4'), categorical annotati
 ## Data3: Phonology, Lexicon, Syntax Representations
 
 <div align="center">
-<img align="center" src="imgs/LACD.png" width="1000px" />
+<img align="center" src="imgs/LACD.png" width="500px" />
 <b><br>Dialect Locations for Data3</b>
 </div>
 
@@ -37,14 +37,14 @@ We collected raw speech ('Data2'), transcription ('Data4'), categorical annotati
 ## Data4: Initial, Final, and Tone Representations
 
 <div align="center">
-<img align="center" src="imgs/YuBao.png" width="1000px" />
-<b><br>Fig 4.1: Original Dialect Locations for Data4</b>
+<img align="center" src="imgs/Data4.png" width="1000px" />
+<b><br>Fig 4: (Left) Original 1289 Dialect Locations for Data4; (Right) 1084 Dialect Locations for Processed Data4</b>
 </div>
 
 
 ### 4.1: Raw Transcription Loading
 
-As seen in Fig 4.1, the raw dataset contains 1289 Sinitic dialects. For each dialect, linguists investigate 1000 words.
+As seen in Fig 4 (left), the raw dataset contains 1289 Sinitic dialects. For each dialect, linguists investigate 1000 words.
 
 You can load the original transcription data and related metadata using the `load_feats` function in `load.py`. Specifically, use `type='raw'` to get this initial set of data:
 
@@ -83,6 +83,7 @@ dialect_locations = raw_data_dict['coords']
 
 
 ### 4.2 Data Processing and Distance Matrix Calculation
+
 
 Before calculating dialect distances, the raw transcription data undergoes a processing step to handle missing and potentially unreliable values.
 

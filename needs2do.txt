@@ -6,3 +6,7 @@ select parts of the Yubao dataset
 语保部分分类标的不对，或至少是模糊区（需要进行二次重新标注）
 看方言区内的聚类
 看方言小片的聚类
+
+1. Complete Using Autogen to Automatically label dialects
+2. Label YuBao (Data4) and Check the LACD (Data3)
+3. Process the vedio (aggregate parts [mean + VAE + GMM&ivectors] + Pretrained Models)

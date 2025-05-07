@@ -21,8 +21,25 @@ We collected raw speech ('Data2'), transcription ('Data4'), categorical annotati
 [^yang2024]: Yang, C., Zhang, X., Yan, S., Yang, S., Wu, B., You, F., ... & Zhang, M. (2024). Large-scale lexical and genetic alignment supports a hybrid model of Han Chinese demic and cultural diffusions. Nature Human Behaviour, 8(6), 1163-1176.
 [^zhang2019]: Zhang, M., Yan, S., Pan, W., & Jin, L. (2019). Phylogenetic evidence for Sino-Tibetan origin in northern China in the Late Neolithic. Nature, 569(7754), 112-115.
 
+## 1. Automatic Labeling Area & Slice
+
+We digitalize 《中国方言地图集》23 maps and use a Vision-language model to phrase it, along with a langauge model for documentng. Then, we establish a AI Agent with RAG. This system could automatically label dialects to their corresponding area and slices.
 
 ## Data2: Speech Representations 
+
+### 2.1 MFCCs-Based Features
+
+We use MFCCs to extract a 39-dimensional represenatation from audio every 10 ms. Then, we use mean, GMM + ivecors to map each area/slice a representation. You can load these representations easily with: 
+
+```python
+representation = load_feats(name='Data2', type='mfccs-mean') #gmm
+info = load_feats(name='Data2', type='info')
+```
+
+### 2.2 Pretrained Speech Models
+
+
+
 
 ## Data3: Phonology, Lexicon, Syntax Representations
 

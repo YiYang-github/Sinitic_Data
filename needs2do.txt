@@ -7,6 +7,13 @@ select parts of the Yubao dataset
 看方言区内的聚类
 看方言小片的聚类
 
+1. 使用python简单完成GMMs+I-vectors操作
+2. 再修改Agent Code
+
+
+
 1. Complete Using Autogen to Automatically label dialects
 2. Label YuBao (Data4) and Check the LACD (Data3)
 3. Process the vedio (aggregate parts [mean + VAE + GMM&ivectors] + Pretrained Models)
+
+一步步来，用python跑通全过程

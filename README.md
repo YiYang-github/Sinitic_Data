@@ -25,7 +25,7 @@ We collected raw speech ('Data2'), transcription ('Data4'), categorical annotati
 ## 1. Automatic Labeling of Dialect Area & Slice 
 
 <div align="center">
-<img align="center" src="imgs/Auto_dialect.png" width="500px" />
+<img align="center" src="imgs/Auto_dialect.png" width="800px" />
 <b><br>Fig 3. Dialect Locations for Data3</b>
 </div>
 
@@ -80,18 +80,57 @@ The unique numerical categories for the three processed rhyme components are 16,
 
 
 
+## Data2: Speech-based Representations 
 
+This section details speech-based representations extracted from `Data2` (827GB of Sinitic dialect audio). These features aim to capture acoustic properties of different dialectal regions and slices.
 
 ### 2.1 MFCCs-Based Features
 
-We use MFCCs to extract a 39-dimensional represenatation from audio every 10 ms. Then, we use mean, GMM + ivecors to map each area/slice a representation. You can load these representations easily with: 
+The foundational acoustic features are 39-dimensional Mel-Frequency Cepstral Coefficients (MFCCs), extracted every 10 ms from the raw audio waveforms. Based on these MFCCs, we derive two types of higher-level representations:
+
+**1. Mean MFCC Vectors**
+
+For each dialect area and dialect slice, a single, representative 39-dimensional feature vector is computed by averaging all MFCC frames belonging to that specific area or slice. This provides a general acoustic profile for each dialectal grouping.
+
+You can load these mean-pooled representations using:
 
 ```python
-representation = load_feats(name='Data2', type='mfccs-mean') #gmm
-info = load_feats(name='Data2', type='info')
+# Load mean MFCCs aggregated by dialect area
+dialect_mean_mfccs = load_feats(name='Data2', type='mfcc_dialect_mean') 
+# Expected content: {'features': np.array (17, 39), 'names': np.array (17,)}
+
+# Load mean MFCCs aggregated by dialect slice
+slice_mean_mfccs = load_feats(name='Data2', type='mfcc_slice_mean')
+# Expected content: {'features': np.array (77, 39), 'names': np.array (77,)}
 ```
 
-### 2.2 Pretrained Speech Models
+* The `dialect_mean_mfccs` dictionary contains:
+    * `features`: A NumPy array of shape `(17, 39)` representing the mean MFCC vector for each of the 17 dialect areas.
+    * `names` (or `dialect_names`): A NumPy array of shape `(17,)` containing the names of these dialect areas.
+* The `slice_mean_mfccs` dictionary contains:
+    * `features`: A NumPy array of shape `(77, 39)` representing the mean MFCC vector for each of the 77 dialect slices.
+    * `names` (or `slice_names`): A NumPy array of shape `(77,)` containing the names of these dialect slices.
+
+**2. GMM-i-vector Representations**
+
+To capture more complex distributional characteristics of the MFCCs for each dialect area, we also trained a Gaussian Mixture Model (GMM) based i-vector system. A Universal Background Model (UBM) with 256 Gaussian components was first trained on a large subset of the MFCC data. Subsequently, a 400-dimensional i-vector was extracted for each dialect area, representing its acoustic characteristics within the total variability space.
+
+You can load these i-vector representations using:
+
+```python
+dialect_gmm_ivectors = load_feats(name='Data2', type='mfcc_dialect_gmm_ivector')
+# Expected content: {'features': np.array (17, 400), 'names': np.array (17,)}
+```
+
+* The `dialect_gmm_ivectors` dictionary contains:
+    * `features`: A NumPy array of shape `(17, 400)` representing the 400-dimensional i-vector for each of the 17 dialect areas.
+    * `names` (or `dialect_names`): A NumPy array of shape `(17,)` containing the names of these dialect areas.
+
+### 2.2 Pretrained Speech Models (基于预训练模型的特征)
+
+Representations derived from state-of-the-art pre-trained speech models (e.g., Wav2Vec2.0, HuBERT, Whisper, WavLM) will be extracted and made available in a future update. These models, pre-trained on vast amounts of speech data, are expected to provide highly robust and generalizable features, often less sensitive to variations in recording equipment and noise compared to traditional MFCCs.
+
+*(To be released soon)*
 
 
 

@@ -21,11 +21,66 @@ We collected raw speech ('Data2'), transcription ('Data4'), categorical annotati
 [^yang2024]: Yang, C., Zhang, X., Yan, S., Yang, S., Wu, B., You, F., ... & Zhang, M. (2024). Large-scale lexical and genetic alignment supports a hybrid model of Han Chinese demic and cultural diffusions. Nature Human Behaviour, 8(6), 1163-1176.
 [^zhang2019]: Zhang, M., Yan, S., Pan, W., & Jin, L. (2019). Phylogenetic evidence for Sino-Tibetan origin in northern China in the Late Neolithic. Nature, 569(7754), 112-115.
 
-## 1. Automatic Labeling Area & Slice
 
-We digitalize 《中国方言地图集》23 maps and use a Vision-language model to phrase it, along with a langauge model for documentng. Then, we establish a AI Agent with RAG. This system could automatically label dialects to their corresponding area and slices.
+## 1. Automatic Labeling of Dialect Area & Slice 
 
-## Data2: Speech Representations 
+<div align="center">
+<img align="center" src="imgs/Auto_dialect.png" width="500px" />
+<b><br>Fig 3. Dialect Locations for Data3</b>
+</div>
+
+To ensure consistent dialect classification, we developed an AI agent that automatically labels Sinitic dialect areas (方言大区) and slices (方言片) for given geographical inputs. This addresses inconsistencies across datasets and automates the laborious manual lookup process.
+
+**Core Workflow:**
+1.  **Input**: User provides latitude/longitude or textual location descriptions.
+2.  **Geocoding**: Textual descriptions are converted to coordinates and standardized administrative information (province, city, county) using a geocoding service (e.g., Tencent Maps API).
+3.  **Knowledge Base Matching**: The county-level information is matched against our **Dialectal Geospatial Knowledge Base**. This knowledge base was constructed by digitizing and structuring 23 dialect maps from the *Language Atlas of China* (2nd Edition) using Vision-Language Models (VLMs like Gemini 2.5 Pro) for map parsing, Large Language Models (LLMs) for refinement, and manual verification. It maps counties to their respective dialect areas/slices.
+4.  **Output**: The agent returns the corresponding dialect area and slice.
+
+
+
+## Data1: Middle Chinese Phonological Information 
+
+`Data1` offers a structured representation of Middle Chinese (中古汉语) phonological information for a list of Chinese characters, essential for historical phonology and dialect evolution studies. The processed data is available in `Data1/data.pkl`.
+
+**Content:**
+The dataset provides numerically encoded features for 3201 cleaned characters:
+* `word`: List of Chinese characters.
+* `initial`: Numerical codes for Middle Chinese initials (古声母).
+* `final_1`: Numerical codes for the first structural part of the Middle Chinese rhyme (e.g., *Shè* 摄).
+* `final_2`: Numerical codes for the second structural part (e.g., *Hū* 呼 - open/closed mouth & *Děng* 等 - division).
+* `final_3`: Numerical codes for the specific rhyme name (韵目).
+* `tone`: Numerical codes for Middle Chinese tones (古声调).
+
+**Loading Example:**
+```python
+data1_info = load_feats(name='Data1', type='info')
+
+# Access components:
+character_list = data1_info['word']
+initial_codes = data1_info['initial']
+# ... and so on
+```
+
+Running this command will typically show loading progress or information similar to this output:
+
+```text
+正在从文件 'Data1/data.pkl' 加载数据...
+计划加载的特征: ['word', 'initial', 'final_1', 'final_2', 'final_3', 'tone']
+成功加载 6 个特征。
+```
+
+**Processing Highlights:**
+The raw data (3807 entries) was processed by:
+1.  Extracting single characters.
+2.  Decomposing the complex "韵部" (rhyme part) string into three structural components.
+3.  Mapping phonological categories (initials, tones, and the three rhyme components) to numerical IDs.
+4.  Cleaning by removing duplicates and entries with parsing issues.
+The unique numerical categories for the three processed rhyme components are 16, 8, and 202, respectively. The original dataset had 44 unique initials, 284 unique raw rhyme strings, and 4 tones.
+
+
+
+
 
 ### 2.1 MFCCs-Based Features
 
